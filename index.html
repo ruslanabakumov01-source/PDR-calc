@@ -4,13 +4,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>PDR Calculator</title>
-<link rel="manifest" href="manifest.webmanifest">
-<meta name="theme-color" content="#FFFFFF">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="PDR Calc">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="icon" type="image/png" href="icon-192.png">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap">
 <style>
 :root{box-sizing:border-box;--sat:0px;--sab:0px;padding-top:max(env(safe-area-inset-top,0px),var(--safe-area-inset-top,0px),var(--sat));padding-bottom:max(env(safe-area-inset-bottom,0px),var(--safe-area-inset-bottom,0px),var(--sab));
@@ -22,7 +15,7 @@
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--app-bg:#14171C;--surface:#1D2128;--surface-secondary:#242932;--text-primary:#EEF1F5;--text-secondary:#A3ADBA;--text-muted:#7D8794;--border:#323945;--border-strong:#465061;--accent-soft:#3A3216;--header-bg:#1D2128;--footer-bg:#1D2128;--card-shadow:none;}}
 :root[data-theme="dark"]{--app-bg:#14171C;--surface:#1D2128;--surface-secondary:#242932;--text-primary:#EEF1F5;--text-secondary:#A3ADBA;--text-muted:#7D8794;--border:#323945;--border-strong:#465061;--accent-soft:#3A3216;--header-bg:#1D2128;--footer-bg:#1D2128;--card-shadow:none;}
 @media (min-width:768px){:root{--pad:24px;--gap:20px;--card-pad:20px;--hdr-h:72px}}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px);overscroll-behavior-y:contain}body{overscroll-behavior-y:contain}
 *{box-sizing:border-box}
 body{margin:0;background:var(--app-bg);color:var(--text-primary);font:15px/1.5 Inter,"Segoe UI",Roboto,Arial,sans-serif}
 .hdr{background:var(--header-bg);border-bottom:1px solid var(--border);height:var(--hdr-h);display:flex;align-items:center;padding:0 var(--pad)}
@@ -174,6 +167,7 @@ button.rnd.on{background:var(--accent);border-color:var(--accent);color:var(--ac
 .dn .g,.sub .g{align-items:end}
 .dn .g.opts,.sub .g.opts{align-items:stretch}
 .dn>.g:not(.opts)>div:last-child:nth-child(odd){grid-column:1/-1}
+.xr{display:grid;grid-template-columns:minmax(0,1fr) 112px auto;gap:8px;align-items:end;margin:var(--space-3) 0}.xr>div{min-width:0}.xr button{width:46px;padding:0}
 .brand [data-home]{cursor:pointer;-webkit-tap-highlight-color:transparent}.stripes i{pointer-events:none}
 </style>
 </head>
@@ -374,16 +368,21 @@ Object.assign(NEWT,{q_in_s:"",q_in_c:"",q_fuel:"",dtp:"",dd_inner:""});
 Object.assign(RAW,{fe_trim:"Зняття пластикової накладки (молдинг)|Plastic trim (molding) removal|Desmontaje de moldura plástica|Dépose de la moulure plastique|Demontage der Kunststoffleiste|Remoção da moldura plástica|Demontaż nakładki plastikowej (listwy)|Rimozione della modanatura in plastica|Demontare ornament plastic",d_drv:"Демонтаж водійських дверей|Driver door removal|Desmontaje de la puerta del conductor|Dépose de la porte conducteur|Ausbau der Fahrertür|Remoção da porta do motorista|Demontaż drzwi kierowcy|Rimozione della porta guidatore|Demontare ușă șofer",d_bench:"Демонтаж дверей з авто|Door removal from car|Desmontaje de la puerta del vehículo|Dépose de la porte du véhicule|Tür vom Fahrzeug abbauen|Remoção da porta do carro|Demontaż drzwi z samochodu|Rimozione della porta dal veicolo|Demontare ușă de pe mașină",dd_film:"Волога захисна плівка|Moisture barrier film|Lámina antihumedad|Film pare-humidité|Feuchtigkeitsschutzfolie|Filme de proteção contra umidade|Folia przeciwwilgociowa|Pellicola antiumidità|Folie de protecție împotriva umezelii",dd_glf:"Демонтаж скла (передні двері)|Glass removal (front door)|Desmontaje del cristal (puerta delantera)|Dépose de la vitre (porte avant)|Scheibenausbau (Vordertür)|Remoção do vidro (porta dianteira)|Demontaż szyby (drzwi przednie)|Rimozione del vetro (porta anteriore)|Demontare geam (ușă față)",dd_glr:"Демонтаж скла (задні двері)|Glass removal (rear door)|Desmontaje del cristal (puerta trasera)|Dépose de la vitre (porte arrière)|Scheibenausbau (Hintertür)|Remoção do vidro (porta traseira)|Demontaż szyby (drzwi tylne)|Rimozione del vetro (porta posteriore)|Demontare geam (ușă spate)",dd_seal:"Зняття віброізоляції (заводського герметику)|Sound deadener / factory sealant removal|Retirada de insonorizante (sellador de fábrica)|Dépose de l’insonorisant (mastic d’origine)|Entfernen der Dämmung (Werksdichtmasse)|Remoção da isolação (selante de fábrica)|Usunięcie wygłuszenia (fabrycznego uszczelniacza)|Rimozione insonorizzante (sigillante di fabbrica)|Îndepărtare izolație fonică (etanșant de fabrică)",dsun:"Демонтаж люка|Sunroof removal|Desmontaje del techo solar|Dépose du toit ouvrant|Schiebedach ausbauen|Remoção do teto solar|Demontaż szyberdachu|Rimozione del tetto apribile|Demontare trapă",r_fin:"Зняття антени (плавника)|Antenna (shark fin) removal|Desmontaje de la antena (aleta de tiburón)|Dépose de l’antenne (aileron de requin)|Antenne (Haifischflosse) abbauen|Remoção da antena (barbatana de tubarão)|Demontaż anteny (płetwa rekina)|Rimozione dell’antenna (pinna di squalo)|Demontare antenă (aripă de rechin)",t_lid:"Демонтаж кришки багажника з авто|Trunk lid removal from car|Desmontaje de la tapa del maletero|Dépose du capot de coffre|Kofferraumdeckel abbauen|Remoção da tampa do porta-malas|Demontaż klapy bagażnika|Rimozione del cofano bagagliaio|Demontare capac portbagaj",t_trim_s:"М’яка обшивка кришки багажника|Soft trim of trunk lid|Tapizado blando de la tapa del maletero|Garniture souple du coffre|Weiche Verkleidung der Kofferraumklappe|Forro macio da tampa do porta-malas|Miękka tapicerka klapy bagażnika|Rivestimento morbido del cofano bagagliaio|Căptușeală moale capac portbagaj",q_in_s:"М’яка обшивка багажного відділення|Soft cargo area trim|Tapizado blando del maletero|Garniture souple du coffre|Weiche Kofferraumverkleidung|Forro macio do porta-malas|Miękka tapicerka bagażnika|Rivestimento morbido del bagagliaio|Căptușeală moale portbagaj",q_in_c:"Пластикова обшивка багажного відділення|Plastic cargo area trim|Revestimiento plástico del maletero|Garniture plastique du coffre|Kunststoff-Kofferraumverkleidung|Revestimento plástico do porta-malas|Plastikowa obudowa bagażnika|Rivestimento in plastica del bagagliaio|Căptușeală plastic portbagaj",t_spoil:"Спойлер|Spoiler|Alerón|Aileron|Spoiler|Aerofólio|Spoiler|Spoiler|Eleron"});
 Object.assign(NEWT,{fe_trim:"",d_drv:"",d_bench:"",dd_film:"",dd_glf:"",dd_glr:"",dd_seal:"",dsun:"",r_fin:"",t_lid:"",t_trim_s:"",q_in_s:"",q_in_c:"",t_spoil:""});
 Object.assign(NEWT,{critical:"Kritická|Kriittinen|Kritiskt|치명적|极深|非常に深い|Kriitiline|Kritinė|Kritiska|Критична|Kritik|Сыни|Kritik|კრიტიკული|Կրիտիկական|Kritik|Κρίσιμο"});
+Object.assign(RAW,{extra:"Додаткові послуги|Additional services|Servicios adicionales|Services supplémentaires|Zusatzleistungen|Serviços adicionais|Usługi dodatkowe|Servizi aggiuntivi|Servicii suplimentare",xname:"Назва послуги|Service name|Nombre del servicio|Nom du service|Bezeichnung|Nome do serviço|Nazwa usługi|Nome del servizio|Denumirea serviciului",xamt:"Сума|Amount|Importe|Montant|Betrag|Valor|Kwota|Importo|Sumă",xadd:"Послуга|Service|Servicio|Service|Leistung|Serviço|Usługa|Servizio|Serviciu"});
 const T={};for(const k in RAW)T[k]=RAW[k].split('|').concat(NEWT[k]?NEWT[k].split('|'):[]);
 const ZK=['hood','fender','doorf','doorr','roof','trunk','quarter','pillar','sill'],ZA={hood:'free',fender:'free',doorf:'limited',doorr:'limited',roof:'limited',trunk:'limited',quarter:'glue',pillar:'glue',sill:'glue'};
 const SH=['smooth','line'],DP=['shallow','medium','deep','critical'],LO=['flat','rib','bend','edge'],AC=['free','limited','glue'],MA=['steel','hss','alu'],QK=['high','mid','paint'],CK=['c1','c2','c3','c4'],DK=[];
 const RM={hood:['hood_trim','hood_grille','hood_rem','hood_jets'],fender:['fe_turn','fe_trim','wheel_rm','dfen','dbf','liner','dhl','d_drv'],doorf:['d_bench','dcard','dd_film','dd_inner','dd_lock','dd_mirror','dd_glf','dd_seal','dmold'],doorr:['d_bench','dslide','dcard','dd_film','dd_inner','dd_lock','dd_glr','dd_seal','dmold'],roof:['headl','r_hs','r_hm','dsun','r_rails','r_fin','r_mir','r_snd','dmold'],trunk:['t_lid','t_trim_s','dtp','t_stop','dbr','dmold','t_spoil'],quarter:['wheel_rm','q_in_s','q_in_c','q_fuel','dbr','dtl','liner','dmold'],pillar:['headl','dmold'],sill:['wheel_rm','liner','d_bench','dmold']};DK.push(...new Set(Object.values(RM).flat()));let OPEN={},OPENC={};const CV={};const cz=z=>(cfg.custom||[]).filter(c=>c.z.includes(z)).map(c=>c.id);const allk=z=>(RM[z]||[]).concat(cz(z));const vis=z=>(RM[z]||[]).filter(k=>!CV[k]||CV[k].includes(S.cls)).concat(cz(z));const HL=['≤ 1.5 cm','≤ 2.5 cm','≤ 3.5 cm','≤ 5 cm','> 5 cm'];
 const RATES={UAH:1500,USD:40,EUR:40,AMD:15000,AZN:70,CNY:200,CZK:900,GBP:35,GEL:110,JPY:6000,KRW:55000,KZT:18000,PLN:150,RON:180,SEK:450,TRY:1200,UZS:450000};
-const DEF={custom:[],areas:[[1,0.25],[6.25,0.3],[25,0.5],[100,1],[400,2],[900,2.5],[1600,3],[2500,3.75],[3600,4.5],[4900,5.25],[6400,6],[8100,7],[10000,8]],shape:{smooth:1,line:1.3},depth:{shallow:0.9,medium:1,deep:1.3,critical:1.5},loc:{flat:1,rib:1.2,bend:1.3,edge:1.4},access:{free:1,limited:1.2,glue:1.5},mat:{steel:1,hss:1.15,alu:1.4},quality:{high:1,mid:0.75,paint:0.75},cls:{c1:1,c2:1.3,c3:1.8,c4:2.5},clsv:2,dmv:3,heat:1,hail:[0.12,0.15,0.25,0.4,0.6],stretch:1.25,film:1.2,matte:1.2,dmh:{hood_trim:0.08,hood_grille:0.17,hood_rem:0.33,hood_jets:0.17,fe_turn:0.08,fe_trim:0.17,wheel_rm:0.25,dfen:0.33,dbf:0.75,liner:0.33,dhl:0.25,d_drv:0.25,d_bench:0.25,dcard:0.33,dd_film:0.08,dd_inner:0.17,dd_lock:0.25,dd_mirror:0.08,dd_glf:0.08,dd_seal:0.25,dmold:0.25,dslide:1.5,dd_glr:0.33,headl:1,r_hs:1.33,r_hm:2,dsun:0.67,r_rails:0.25,r_fin:0.17,r_mir:0.33,r_snd:0.33,t_trim_s:0.25,dtp:0.5,t_stop:0.17,dbr:1,t_spoil:0.17,q_in_s:0.25,q_in_c:0.67,q_fuel:0.33,dtl:0.2,t_lid:0.33},triplex:0.33,min:1,area100:40};
+const OLDA=[[1,0.25],[6.25,0.3],[25,0.5],[100,1],[400,2],[900,2.5],[1600,3],[2500,3.75],[3600,4.5],[4900,5.25],[6400,6],[8100,7],[10000,8]];
+const AGRID=(()=>{const g=[1,5];for(let x=10;x<=30;x+=5)g.push(x);for(let x=40;x<=100;x+=10)g.push(x);for(let x=150;x<=500;x+=50)g.push(x);for(let x=600;x<=1000;x+=100)g.push(x);for(let x=1200;x<=10000;x+=200)g.push(x);return g})();
+const areaI=(p,a)=>{const n=p.length;if(a<=p[0][0])return p[0][1];for(let i=1;i<n;i++)if(a<=p[i][0])return p[i-1][1]+(a-p[i-1][0])*(p[i][1]-p[i-1][1])/(p[i][0]-p[i-1][0]);return p[n-1][1]+(a-p[n-1][0])*(p[n-1][1]-p[n-2][1])/(p[n-1][0]-p[n-2][0]);};
+const resamp=p=>AGRID.map(x=>[x,Math.round(areaI(p,x)*100)/100]);
+const DEF={custom:[],areav:2,areas:resamp(OLDA),shape:{smooth:1,line:1.3},depth:{shallow:0.9,medium:1,deep:1.3,critical:1.5},loc:{flat:1,rib:1.2,bend:1.3,edge:1.4},access:{free:1,limited:1.2,glue:1.5},mat:{steel:1,hss:1.15,alu:1.4},quality:{high:1,mid:0.75,paint:0.75},cls:{c1:1,c2:1.3,c3:1.8,c4:2.5},clsv:2,dmv:3,heat:1,hail:[0.12,0.15,0.25,0.4,0.6],stretch:1.25,film:1.2,matte:1.2,dmh:{hood_trim:0.08,hood_grille:0.17,hood_rem:0.33,hood_jets:0.17,fe_turn:0.08,fe_trim:0.17,wheel_rm:0.25,dfen:0.33,dbf:0.75,liner:0.33,dhl:0.25,d_drv:0.25,d_bench:0.25,dcard:0.33,dd_film:0.08,dd_inner:0.17,dd_lock:0.25,dd_mirror:0.08,dd_glf:0.08,dd_seal:0.25,dmold:0.25,dslide:1.5,dd_glr:0.33,headl:1,r_hs:1.33,r_hm:2,dsun:0.67,r_rails:0.25,r_fin:0.17,r_mir:0.33,r_snd:0.33,t_trim_s:0.25,dtp:0.5,t_stop:0.17,dbr:1,t_spoil:0.17,q_in_s:0.25,q_in_c:0.67,q_fuel:0.33,dtl:0.2,t_lid:0.33},triplex:0.33,min:1,area100:40};
 const $=id=>document.getElementById(id),clone=o=>JSON.parse(JSON.stringify(o));
 let li=Math.max(0,L.indexOf((navigator.language||'en').slice(0,2)));if(L.indexOf((navigator.language||'en').slice(0,2))<0)li=1;
-let S={lang:li,cur:'UAH',rates:clone(RATES),tol:20,markup:0,q:'high',cls:'c1',heat:0,tri:false,dm:{},dents:[],car:'',aid:null,rnd:false,van:false},cfg=clone(DEF);
-try{const s=JSON.parse(localStorage.getItem('pdrcalc2')||'null');if(s){Object.assign(S,s.S);if(s.v===5){cfg=Object.assign(clone(DEF),s.cfg);if(!s.cfg||s.cfg.clsv!==2)cfg.cls=clone(DEF.cls);cfg.cls=Object.assign({},DEF.cls,cfg.cls);cfg.loc=Object.assign({},DEF.loc,cfg.loc);cfg.depth=Object.assign({},DEF.depth,cfg.depth);cfg.dmh=Object.assign({},DEF.dmh,cfg.dmh);if(!s.cfg||s.cfg.dmv!==3)Object.assign(cfg.dmh,DEF.dmh);Object.keys(cfg.dmh).forEach(k=>{cfg.dmh[k]=Math.round(cfg.dmh[k]*100)/100});}S.rates=Object.assign(clone(RATES),S.rates);if(!RATES[S.cur])S.cur='UAH';if(!(S.lang>=0&&S.lang<L.length))S.lang=1;li=S.lang;}}catch(e){}
+let S={lang:li,cur:'UAH',rates:clone(RATES),tol:20,markup:0,q:'high',cls:'c1',heat:0,tri:false,dm:{},dents:[],car:'',aid:null,rnd:false,van:false,extras:[]},cfg=clone(DEF);
+try{const s=JSON.parse(localStorage.getItem('pdrcalc2')||'null');if(s){Object.assign(S,s.S);if(s.v===5){cfg=Object.assign(clone(DEF),s.cfg);if(!s.cfg||s.cfg.areav!==2){cfg.areas=resamp(s.cfg&&s.cfg.areas&&s.cfg.areas.length>1?s.cfg.areas:OLDA);cfg.areav=2;}if(!s.cfg||s.cfg.clsv!==2)cfg.cls=clone(DEF.cls);cfg.cls=Object.assign({},DEF.cls,cfg.cls);cfg.loc=Object.assign({},DEF.loc,cfg.loc);cfg.depth=Object.assign({},DEF.depth,cfg.depth);cfg.dmh=Object.assign({},DEF.dmh,cfg.dmh);if(!s.cfg||s.cfg.dmv!==3)Object.assign(cfg.dmh,DEF.dmh);Object.keys(cfg.dmh).forEach(k=>{cfg.dmh[k]=Math.round(cfg.dmh[k]*100)/100});}S.rates=Object.assign(clone(RATES),S.rates);if(!RATES[S.cur])S.cur='UAH';if(!(S.lang>=0&&S.lang<L.length))S.lang=1;li=S.lang;}}catch(e){}
 const migDm=a=>{(a||[]).forEach(d=>{if(!d.dm)return;if(d.dm.q_in_x){d.dm.q_in_c=true;delete d.dm.q_in_x}if(d.dm.t_trim_c){d.dm.t_trim_s=true;delete d.dm.t_trim_c}if(d.z==='fender'&&d.dm.d_bench){d.dm.d_drv=true;delete d.dm.d_bench}if(d.dm.trunk){d.dm.t_lid=true;delete d.dm.trunk}})};migDm(S.dents);
 const save=()=>{try{localStorage.setItem('pdrcalc2',JSON.stringify({v:5,S,cfg}))}catch(e){}};
 const t=k=>{const a=T[k];if(a)return a[li]||a[1];const c=(cfg.custom||[]).find(x=>x.id===k);return c?c.name:k};
@@ -420,9 +419,7 @@ function cfgUI(){
   +sec('ot',t('tri'),row(t('tri'),'triplex',cfg.triplex))
   +`<div class="sm"><button class="sec" data-reset="1">${t('reset')}</button></div>`;
 }
-function areaH(a){const p=cfg.areas,n=p.length;if(a<=p[0][0])return p[0][1];
-  for(let i=1;i<n;i++)if(a<=p[i][0])return p[i-1][1]+(a-p[i-1][0])*(p[i][1]-p[i-1][1])/(p[i][0]-p[i-1][0]);
-  return p[n-1][1]+(a-p[n-1][0])*(p[n-1][1]-p[n-2][1])/(p[n-1][0]-p[n-2][0]);}
+function areaH(a){return areaI(cfg.areas,a);}
 const HT=d=>(H(d)+(d.sub||[]).reduce((x,y)=>x+H(y),0))*(d.bf?cfg.film:1)*(d.mp?cfg.matte:1);
 function H(d){
   const c=cfg,hp=d.st?(+d.hp||1)*c.heat:0;
@@ -459,13 +456,16 @@ function render(){
     </div>${optsUI(i,d,['st','bf','mp','tx'])}${(d.sub||[]).map((x,j)=>subH(i,j,x)).join('')}${dd(i,d)}${phUI(i,d)}${esub(i)}<div class="acts"><button class="sec plus" data-del="${i}"><i class="pl mi" aria-hidden="true"></i>${t('del')}</button>${d.ty==='d'?`<button class="sec plus" data-sadd="${i}"><i class="pl" aria-hidden="true"></i>${t('addel')}</button>`:''}</div></div>`;}).join('');
   pdr=pdr*(cfg.quality[S.q]||1);
   const seen={};let dmh=0;S.dents.forEach(d=>{Object.keys(d.dm||{}).forEach(k=>{if(d.dm[k]&&vis(d.z).includes(k)&&!seen[d.z+k]){seen[d.z+k]=1;dmh+=cfg.dmh[k]||0}})});
-  const ts={};let tri=0;S.dents.forEach(d=>{if(d.tx&&(d.z==='doorf'||d.z==='doorr')&&!ts[d.z]){ts[d.z]=1;tri+=cfg.triplex}});const has=S.dents.length>0,raw=(pdr+tri)*CL+dmh*DCL,hrs=has?Math.max(raw,cfg.min):0;
-  const rate=S.rates[S.cur]||0,stp=rate>=1000?1000:rate>=100?100:10,RN=x=>S.rnd?Math.round(x/stp)*stp:x,p0=hrs*rate*(1+S.markup/100),tl=S.tol/100,price=RN(p0),lo=RN(p0*(1-tl)),hi=RN(p0*(1+tl)),RG=()=>lo===hi?money(lo):money(lo)+' – '+money(hi);
-  $('out').innerHTML=`<div class="pn res"><div class="rt"><label>${t('total')}</label>${has?`<button class="rnd${S.rnd?' on':''}" data-rnd="1" aria-pressed="${S.rnd?'true':'false'}"><span aria-hidden="true">≈</span> ${t('round')}</button>`:''}</div>${has?`<div class="big">${S.tol>0?RG():money(price)}</div>
-  <div class="sm">${S.tol>0?t('likely')+': <b>'+money(price)+'</b> · ':''}${fh(hrs)} ${t('hours')} (PDR ${fh(pdr)} + ${t('dm').toLowerCase()} ${fh(dmh+tri)})</div>
+  const ts={};let tri=0;S.dents.forEach(d=>{if(d.tx&&(d.z==='doorf'||d.z==='doorr')&&!ts[d.z]){ts[d.z]=1;tri+=cfg.triplex}});S.extras=S.extras||[];const ex=S.extras.reduce((a,x)=>a+(+x.a||0),0),hasD=S.dents.length>0,has=hasD||ex!==0,raw=(pdr+tri)*CL+dmh*DCL,hrs=hasD?Math.max(raw,cfg.min):0;
+  const rate=S.rates[S.cur]||0,stp=rate>0?Math.max(1,Math.pow(10,Math.floor(Math.log10(rate/10)))):1,RN=x=>S.rnd?Math.round(x/stp)*stp:x,p0=hrs*rate*(1+S.markup/100),tl=S.tol/100,price=Math.max(0,RN(p0)+ex),lo=Math.max(0,RN(p0*(1-tl))+ex),hi=Math.max(0,RN(p0*(1+tl))+ex),RG=()=>lo===hi?money(lo):money(lo)+' – '+money(hi);
+  const OUTH=`<div class="pn res"><div class="rt"><label>${t('total')}</label>${has?`<button class="rnd${S.rnd?' on':''}" data-rnd="1" aria-pressed="${S.rnd?'true':'false'}"><span aria-hidden="true">≈</span> ${t('round')}</button>`:''}</div>${has?`<div class="big">${S.tol>0?RG():money(price)}</div>
+  <div class="sm">${S.tol>0?t('likely')+': <b>'+money(price)+'</b> · ':''}${fh(hrs)} ${t('hours')} (PDR ${fh(pdr)} + ${t('dm').toLowerCase()} ${fh(dmh+tri)})${ex?' · '+t('extra').toLowerCase()+': <b>'+money(ex)+'</b>':''}</div>
   <div class="row" style="margin-top:10px"><button data-share="1">${t('share')}</button><button class="sec" data-asave="1">${t('csave')}</button></div>`:`<div class="sm">${t('empty')}</div>`}
   <div class="sm">${t('note')}</div></div>
-  ${cards?`<div class="pn els">${cards}</div>`:''}<div class="pn"><div class="row"><button data-add="d">${t('addd')}</button><button data-add="h">+ ${t('hail')}</button></div></div>`;
+  ${cards?`<div class="pn els">${cards}</div>`:''}<div class="pn"><div class="row"><button data-add="d">${t('addd')}</button><button data-add="h">+ ${t('hail')}</button></div></div>
+  <div class="pn"><h3 style="margin-top:0">${t('extra')}</h3>${S.extras.map((x,i)=>`<div class="xr"><div><label>${t('xname')}</label><input type="text" maxlength="60" value="${esc(x.n||'')}" data-xi="${i}" data-xf="n"></div><div><label>${t('xamt')}, ${S.cur}</label><input type="number" step="any" inputmode="decimal" placeholder="0" value="${x.a||''}" data-xi="${i}" data-xf="a"></div><button class="sec plus" data-xdel="${i}" aria-label="${t('del')}"><i class="pl mi" aria-hidden="true"></i></button></div>`).join('')}<button class="sec plus" data-xadd="1"><i class="pl" aria-hidden="true"></i>${t('xadd')}</button></div>`;
+  {const tmp=document.createElement('div');tmp.innerHTML=OUTH;const nr=tmp.querySelector('.pn.res'),or=$('out').querySelector('.pn.res');
+   if(render.keep&&nr&&or)or.replaceWith(nr);else $('out').innerHTML=OUTH;render.keep=false;}
   const ml=e=>S.tol>0?money(e*(1-tl))+' – '+money(e*(1+tl)):money(e);
   const L2=[t('title')+' · '+t('cls')+': '+t(S.cls)+(S.van&&S.cls==='c3'?' ('+t('van')+')':'')+' · '+t('q')+': '+t(S.q)];if(S.car)L2.push(t('car').replace(/ \(.*\)/,'')+': '+S.car);L2.push('');
   S.dents.forEach((d,i)=>{const e=EL[i];let ds;
@@ -475,6 +475,7 @@ function render(){
     if(d.bf)ds+=' · '+t('bf');if(d.mp)ds+=' · '+t('mp');
     L2.push((i+1)+'. '+t(d.z)+' — '+ds+' — '+fh(e.hh)+' '+t('hours')+' — '+ml(e.p));
     const ex=e.nm.concat(e.tr?[t('tri')]:[]);if(ex.length)L2.push('    '+t('dm')+': '+ex.join(', '));});
+  S.extras.forEach(x=>{if(+x.a)L2.push('+ '+(x.n||t('extra'))+' — '+money(+x.a))});
   L2.push('',t('total')+': '+(S.tol>0?RG():money(price))+' ('+fh(hrs)+' '+t('hours')+')',t('note'));
   render.txt=has?L2.join('\n'):'';render.sum={has,hrs,txt:S.tol>0?RG():money(price)};
 }
@@ -538,19 +539,19 @@ function nav(v){if(v==='home')view('home');
   else if(v==='cfg')view('cfg');
   else if(v==='arch'){view('arch');archUI();}
   else if(v==='new'){if(S.dents.length)openRm('new');else newEst();view('home');}}
-async function newEst(){S.dents=[];S.car='';S.aid=null;OPEN={};await DB.clear('ph');for(const k in PHC)delete PHC[k];save();view('home');all();}
+async function newEst(){S.dents=[];S.extras=[];S.car='';S.aid=null;OPEN={};await DB.clear('ph');for(const k in PHC)delete PHC[k];save();view('home');all();}
 async function saveArch(){if(!render.sum||!render.sum.has){toast(t('empty'));return;}
   const id=S.aid||('a'+Date.now().toString(36)),ph={},used=[];
   S.dents.forEach(d=>(d.ph||[]).forEach(p=>{if(PHC[p]){ph[p]=PHC[p];used.push(p)}}));
   const th=used.length?await shrink(PHC[used[0]],120,.6):'';
   const Sc=clone(S);delete Sc.aid;
   const rec={id,ts:Date.now(),car:S.car||'',S:Sc,pt:render.sum.txt,hrs:render.sum.hrs,n:S.dents.length,np:used.length,th:th||'',txt:render.txt};
-  await DB.put('arch',id,rec);await DB.put('aph',id,ph);S.aid=id;save();toast(t('saved'));}
+  await DB.put('arch',id,rec);await DB.put('aph',id,ph);await newEst();toast(t('saved'));}
 async function loadArch(id){const rec=await DB.get('arch',id);if(!rec)return;const ph=(await DB.get('aph',id))||{};
   await DB.clear('ph');for(const k in PHC)delete PHC[k];for(const k in ph){PHC[k]=ph[k];DB.put('ph',k,ph[k]);}
   const s=rec.S;S.dents=clone(s.dents||[]);migDm(S.dents);S.car=s.car||'';['q','cls','tol','markup','heat','tri'].forEach(k=>{if(s[k]!==undefined)S[k]=s[k]});
   if(RATES[s.cur]){S.cur=s.cur;if(s.rates&&s.rates[s.cur])S.rates[s.cur]=s.rates[s.cur];}
-  S.aid=id;OPEN={};save();view('home');all();}
+  S.extras=clone(s.extras||[]);S.aid=id;OPEN={};save();view('home');all();}
 async function delArch(id){await DB.del('arch',id);await DB.del('aph',id);if(S.aid===id){S.aid=null;save();}archUI();}
 async function archUI(){let rows=[];try{rows=(await DB.all('arch')).map(r=>r.v).sort((a,b)=>b.ts-a.ts);}catch(e){}
   const dt=ts=>{try{return new Date(ts).toLocaleString(LC[li],{dateStyle:'medium',timeStyle:'short'})}catch(e){return new Date(ts).toLocaleString()}};
@@ -564,6 +565,7 @@ document.addEventListener('input',e=>{const x=e.target,s=x.dataset.s;
   else if(s==='rate')S.rates[S.cur]=parseFloat(x.value)||0;
   else if(s==='tol'||s==='markup')S[s]=parseFloat(x.value)||0;
   else if(s==='car')S.car=x.value;
+  else if(x.dataset.xf!==undefined){const o=S.extras[+x.dataset.xi];if(x.dataset.xf==='a')o.a=parseFloat(x.value)||0;else o.n=x.value;save();render.keep=true;render();return;}
   else return;save();render();});
 document.addEventListener('change',e=>{const x=e.target,d=x.dataset;
   if(d.phi!==undefined){addPhotos(+d.phi,x.files);return;}
@@ -591,6 +593,8 @@ document.addEventListener('click',async e=>{const x=e.target,d=x.dataset;
   if(d.aopen){if(S.dents.length)openRm('load',d.aopen);else loadArch(d.aopen);return;}
   if(d.adel){openRm('del',d.adel);return;}
   if(d.del!==undefined){(S.dents[+d.del].ph||[]).forEach(delPhoto);S.dents.splice(+d.del,1);OPEN={};}
+  else if(d.xadd){S.extras=S.extras||[];S.extras.push({n:'',a:0});}
+  else if(d.xdel!==undefined){S.extras.splice(+d.xdel,1);}
   else if(d.sadd!==undefined){const m=S.dents[+d.sadd];m.sub=m.sub||[];m.sub.push({ty:'d',len:4,wid:4,n:1,sh:m.sh||'smooth',dp:m.dp||'medium',lo:m.lo||'flat',ac:m.ac||'free',ma:m.ma||'steel',st:0,hp:1});}
   else if(d.sdel!==undefined){const[a,b]=d.sdel.split('.').map(Number);S.dents[a].sub.splice(b,1);}
   else if(d.add==='d')S.dents.push({ty:'d',z:'fender',len:4,wid:4,n:1,sh:'smooth',dp:'medium',lo:'flat',ac:'free',ma:'steel',st:0,hp:1,dm:{}});
@@ -612,6 +616,5 @@ document.addEventListener('toggle',e=>{const x=e.target;if(x.dataset&&x.dataset.
 all();
 DB.open().then(async()=>{try{const a=await DB.all('ph');a.forEach(r=>{PHC[r.k]=r.v});}catch(e){}render();});
 </script>
-<script>if('serviceWorker' in navigator&&location.protocol.indexOf('http')===0){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})})}</script>
 </body>
 </html>
