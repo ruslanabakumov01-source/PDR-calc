@@ -4,6 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>PDR Calculator</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#FFFFFF">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="PDR Calc">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" href="icon-192.png">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap">
 <style>
 :root{box-sizing:border-box;--sat:0px;--sab:0px;padding-top:max(env(safe-area-inset-top,0px),var(--safe-area-inset-top,0px),var(--sat));padding-bottom:max(env(safe-area-inset-bottom,0px),var(--safe-area-inset-bottom,0px),var(--sab));
@@ -1422,5 +1429,6 @@ window.MSR={open,edit,MS,compute,calib,loadURL};
 })();
 
 </script>
+<script>if('serviceWorker' in navigator&&location.protocol.indexOf('http')===0){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})})}</script>
 </body>
 </html>
