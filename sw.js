@@ -1,6 +1,6 @@
 // Офлайн-кеш: після першого відкриття калькулятор працює без інтернету.
 // Щоб випустити оновлення, збільште номер у CACHE (наприклад, pdr-v27).
-const CACHE = 'pdr-v33';
+const CACHE = 'pdr-v34';
 const FILES = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './apple-touch-icon.png'];
 
 self.addEventListener('install', e => {
